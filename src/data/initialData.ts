@@ -1,0 +1,320 @@
+import { SalonDatabase } from "@/types/salon";
+
+export const initialData: SalonDatabase = {
+  info: {
+    name: "ABCD Salon",
+    tagline: "Your Beauty, Our Passion",
+    shortIntro: "Experience luxury hair styling, rejuvenating skin therapies, and bespoke bridal beauty crafted by certified master artists.",
+    description: "ABCD Salon is Mumbai's premier unisex destination for elevated haircare, skincare, and bespoke makeup artistry. Founded on principles of meticulous technique, genuine international products (L'Oréal, Kérastase, Dyson), and warm hospitality, we provide a relaxing sanctuary where your personal aesthetic comes alive.",
+    address: "Shop No. 12, Ground Floor, Royal Palms Avenue, Linking Road, Bandra West",
+    city: "Mumbai",
+    state: "Maharashtra",
+    pincode: "400050",
+    phone: "+91 98765 43210",
+    whatsapp: "+91 98765 43210",
+    email: "appointments@abcdsalon.in",
+    openingHours: "Mon - Sun: 9:30 AM – 9:00 PM",
+    closedDay: "Tuesday",
+    googleMapsUrl: "https://maps.google.com/?q=Linking+Road+Bandra+West+Mumbai",
+    googleMapsEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3771.441235128678!2d72.83151837583696!3d19.062846182141566!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c91130392c07%3A0x2863773e37d5f07b!2sLinking%20Rd%2C%20Bandra%20West%2C%20Mumbai%2C%20Maharashtra!5e0!3m2!1sen!2sin!4v1700000000000!5m2!1sen!2sin",
+    instagram: "https://instagram.com/abcdsalon_official",
+    facebook: "https://facebook.com/abcdsalonmumbai",
+    youtube: "https://youtube.com/@abcdsalon",
+    heroHeadline: "Your Beauty, Our Passion.",
+    heroSubheadline: "Step into an oasis of contemporary elegance where master stylists sculpt perfection and revitalize your glow with premium international care.",
+    heroImage: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=1920&q=80",
+    announcementBanner: "✨ Festive Special: Flat 20% OFF on all Luxury Hair Spa & Skin Cleanup sessions this week! Use code FESTIVE20 on WhatsApp booking.",
+    showAnnouncement: true,
+    aboutTitle: "A Decade of Hair & Skin Artistry",
+    aboutStory: "Founded with an obsession for precision and warmth, ABCD Salon brings together passionate stylists and clinical-grade dermatological skin treatments under one luxurious roof. We believe that true grooming is not just about looks—it is about restoring confidence, relieving stress, and celebrating individuality.",
+    aboutImage1: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80",
+    aboutImage2: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=800&q=80",
+    yearsOfExcellence: "8+",
+    happyClients: "15,000+",
+    expertStylists: "12",
+    rating: "4.9★",
+    websiteUrl: "https://abcdsalon.vercel.app"
+  },
+  services: [
+    {
+      id: "srv-1",
+      name: "Men's Haircut",
+      category: "Men's Grooming",
+      price: 150,
+      originalPrice: 200,
+      duration: "30 mins",
+      description: "Precision haircut customized for your face shape, followed by refreshing hair wash and modern style finish.",
+      image: "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=600&q=80",
+      isActive: true,
+      isPopular: true,
+      order: 1
+    },
+    {
+      id: "srv-2",
+      name: "Women's Haircut",
+      category: "Hair Care & Styling",
+      price: 400,
+      originalPrice: 550,
+      duration: "45 mins",
+      description: "Complete restyle or maintenance trim with scalp cleanse, deep conditioning, blowdry, and heat styling.",
+      image: "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=600&q=80",
+      isActive: true,
+      isPopular: true,
+      order: 2
+    },
+    {
+      id: "srv-3",
+      name: "Beard Trimming & Styling",
+      category: "Men's Grooming",
+      price: 100,
+      originalPrice: 150,
+      duration: "20 mins",
+      description: "Sharp razor beard shaping, cheekline alignment, hot towel treatment, and nourishing argan beard oil massage.",
+      image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=600&q=80",
+      isActive: true,
+      isPopular: false,
+      order: 3
+    },
+    {
+      id: "srv-4",
+      name: "Hair Styling & Blowdry",
+      category: "Hair Care & Styling",
+      price: 250,
+      originalPrice: 350,
+      duration: "35 mins",
+      description: "Glamorous curls, sleek straight, or high-volume blowout prepared for weddings, parties, or everyday confidence.",
+      image: "https://images.unsplash.com/photo-1595476108010-b4d1f102b1b1?auto=format&fit=crop&w=600&q=80",
+      isActive: true,
+      isPopular: false,
+      order: 4
+    },
+    {
+      id: "srv-5",
+      name: "Luxury Hair Spa",
+      category: "Hair Care & Styling",
+      price: 699,
+      originalPrice: 999,
+      duration: "60 mins",
+      description: "Intense moisture infusion with Kérastase / L'Oréal protein mask, rejuvenating scalp acupressure, and ozone steam.",
+      image: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=600&q=80",
+      isActive: true,
+      isPopular: true,
+      order: 5
+    },
+    {
+      id: "srv-6",
+      name: "Hydra Gold Facial",
+      category: "Skin & Facials",
+      price: 799,
+      originalPrice: 1200,
+      duration: "60 mins",
+      description: "Multi-step brightening facial with deep pore exfoliation, herbal steam, soothing sheet mask, and radiant glow serum.",
+      image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80",
+      isActive: true,
+      isPopular: true,
+      order: 6
+    },
+    {
+      id: "srv-7",
+      name: "Global Hair Coloring",
+      category: "Hair Care & Styling",
+      price: 999,
+      originalPrice: 1499,
+      duration: "90 mins",
+      description: "Ammonia-free rich shades, Balayage, or Highlights with bonded protective plex formula that locks in dazzling shine.",
+      image: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=600&q=80",
+      isActive: true,
+      isPopular: true,
+      order: 7
+    },
+    {
+      id: "srv-8",
+      name: "Bridal Makeup & Styling",
+      category: "Bridal & Makeup",
+      price: 4999,
+      originalPrice: 6500,
+      duration: "180 mins",
+      description: "HD waterproof bridal makeover, false lashes, premium contouring, luxury hairstyling, and traditional saree/dupatta draping.",
+      image: "https://images.unsplash.com/photo-1588516903720-8ceb67f9ef84?auto=format&fit=crop&w=600&q=80",
+      isActive: true,
+      isPopular: true,
+      order: 8
+    },
+    {
+      id: "srv-9",
+      name: "Herbal Skin Cleanup",
+      category: "Skin & Facials",
+      price: 499,
+      originalPrice: 699,
+      duration: "40 mins",
+      description: "Removes blackheads, stubborn dead cells, and environmental impurities for instant fresh and oil-free skin.",
+      image: "https://images.unsplash.com/photo-1512290900672-1f5be57d34db?auto=format&fit=crop&w=600&q=80",
+      isActive: true,
+      isPopular: false,
+      order: 9
+    },
+    {
+      id: "srv-10",
+      name: "Stress Relief Head Massage",
+      category: "Spa & Massage",
+      price: 299,
+      originalPrice: 450,
+      duration: "30 mins",
+      description: "Traditional warm ayurvedic/olive oil head, neck, and shoulder massage that relieves tension and boosts follicle circulation.",
+      image: "https://images.unsplash.com/photo-1540555700478-4be289fbecef?auto=format&fit=crop&w=600&q=80",
+      isActive: true,
+      isPopular: false,
+      order: 10
+    },
+    {
+      id: "srv-11",
+      name: "Keratin Protein Treatment",
+      category: "Hair Care & Styling",
+      price: 2499,
+      originalPrice: 3500,
+      duration: "120 mins",
+      description: "Frizz-free smoothness lasting up to 4 months with deep protein bond reinforcement for silky, mirror-shine tresses.",
+      image: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=600&q=80",
+      isActive: true,
+      isPopular: false,
+      order: 11
+    },
+    {
+      id: "srv-12",
+      name: "Deluxe Pedicure & Manicure",
+      category: "Spa & Massage",
+      price: 699,
+      originalPrice: 999,
+      duration: "60 mins",
+      description: "Sea salt foot bath, gentle scrub, cuticle care, reflexology massage, and glossy nail polishing.",
+      image: "https://images.unsplash.com/photo-1519014816548-bf785179c2ff?auto=format&fit=crop&w=600&q=80",
+      isActive: true,
+      isPopular: false,
+      order: 12
+    }
+  ],
+  offers: [
+    {
+      id: "off-1",
+      title: "Haircut + Beard Styling Combo",
+      description: "Complete gentlemen's styling package including precision haircut, beard trim with hot towel & argan oil treatment.",
+      originalPrice: 250,
+      discountedPrice: 199,
+      discountBadge: "SAVE 20%",
+      image: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=600&q=80",
+      startDate: "2025-01-01",
+      expiryDate: "2027-12-31",
+      isActive: true,
+      terms: "Valid on all days except Tuesdays."
+    },
+    {
+      id: "off-2",
+      title: "Luxury Hair Spa Therapy",
+      description: "Intense deep conditioning ritual with ozone steaming, protein massage, and post-wash style blowdry.",
+      originalPrice: 699,
+      discountedPrice: 559,
+      discountBadge: "20% OFF",
+      image: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=600&q=80",
+      startDate: "2025-01-01",
+      expiryDate: "2027-12-31",
+      isActive: true,
+      terms: "Applicable for any hair length."
+    },
+    {
+      id: "off-3",
+      title: "Royal Bridal Package",
+      description: "Complete signature HD bridal makeover with high-definition makeup, hairstyling, flower accessories & draping.",
+      originalPrice: 4999,
+      discountedPrice: 4249,
+      discountBadge: "15% OFF",
+      image: "https://images.unsplash.com/photo-1588516903720-8ceb67f9ef84?auto=format&fit=crop&w=600&q=80",
+      startDate: "2025-01-01",
+      expiryDate: "2027-12-31",
+      isActive: true,
+      terms: "Advance slot booking required 48 hours prior."
+    },
+    {
+      id: "off-4",
+      title: "Weekend Beauty Combo",
+      description: "Glow essentials bundled together: Gold Brightening Facial + Deep Pore Cleanup + Style Haircut.",
+      originalPrice: 1698,
+      discountedPrice: 999,
+      discountBadge: "SAVE ₹699",
+      image: "https://images.unsplash.com/photo-1570172619644-dfd03ed5d881?auto=format&fit=crop&w=600&q=80",
+      startDate: "2025-01-01",
+      expiryDate: "2027-12-31",
+      isActive: true,
+      terms: "Available Friday through Sunday."
+    }
+  ],
+  gallery: [
+    {
+      id: "gal-1",
+      title: "Classic Fade & Beard Sculpting",
+      category: "Men's Haircuts",
+      imageUrl: "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=800&q=80",
+      description: "Low skin fade with precision line-up and contoured beard."
+    },
+    {
+      id: "gal-2",
+      title: "Glamorous Hollywood Waves",
+      category: "Women's Hairstyles",
+      imageUrl: "https://images.unsplash.com/photo-1580618672591-eb180b1a973f?auto=format&fit=crop&w=800&q=80",
+      description: "Textured layered cut with soft Hollywood curls."
+    },
+    {
+      id: "gal-3",
+      title: "Royal Indian Bridal Look",
+      category: "Bridal Makeup",
+      imageUrl: "https://images.unsplash.com/photo-1588516903720-8ceb67f9ef84?auto=format&fit=crop&w=800&q=80",
+      description: "Flawless HD radiant bridal glow with classic smoky eyes."
+    },
+    {
+      id: "gal-4",
+      title: "Caramel Honey Balayage",
+      category: "Hair Coloring",
+      imageUrl: "https://images.unsplash.com/photo-1562322140-8baeececf3df?auto=format&fit=crop&w=800&q=80",
+      description: "Sun-kissed hand-painted balayage on virgin brunette locks."
+    },
+    {
+      id: "gal-5",
+      title: "Modern VIP Styling Station",
+      category: "Salon Interior",
+      imageUrl: "https://images.unsplash.com/photo-1560066984-138dadb4c035?auto=format&fit=crop&w=800&q=80",
+      description: "Air-conditioned luxury ambiance with ergonomic Italian styling chairs."
+    },
+    {
+      id: "gal-6",
+      title: "Damaged to Glass Hair Transformation",
+      category: "Before and After",
+      imageUrl: "https://images.unsplash.com/photo-1519699047748-de8e457a634e?auto=format&fit=crop&w=800&q=80",
+      description: "Keratin gloss infusion showing dramatic shine restoration."
+    },
+    {
+      id: "gal-7",
+      title: "Textured Crop & Taper",
+      category: "Men's Haircuts",
+      imageUrl: "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?auto=format&fit=crop&w=800&q=80",
+      description: "Messy matte finish crop cut for men."
+    },
+    {
+      id: "gal-8",
+      title: "Chocolate Brunette Gloss",
+      category: "Hair Coloring",
+      imageUrl: "https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?auto=format&fit=crop&w=800&q=80",
+      description: "High-shine rich espresso color gloss."
+    },
+    {
+      id: "gal-9",
+      title: "Relaxing Spa Wash Lounge",
+      category: "Salon Interior",
+      imageUrl: "https://images.unsplash.com/photo-1527799820374-dcf8d9d4a388?auto=format&fit=crop&w=800&q=80",
+      description: "Ergonomic shampoo beds with soothing ambient soundscapes."
+    }
+  ],
+  admin: {
+    username: "admin",
+    passwordHash: "7d76ad691743920e010ca54ff5d021ca3cd8a09774afbc00a211859bb71496d55a211020ebdddca5b0a6422b48c0bf503a31c207e0f7096251a1e916ed23befb",
+    salt: "abcdsalon_admin_salt_2026"
+  }
+};
