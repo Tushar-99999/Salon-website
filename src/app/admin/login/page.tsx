@@ -3,7 +3,20 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Scissors, Lock, User, Eye, EyeOff, Sparkles, ArrowRight, ArrowLeft } from "lucide-react";
+import {
+  Scissors,
+  Lock,
+  User,
+  Eye,
+  EyeOff,
+  Sparkles,
+  ArrowRight,
+  ArrowLeft,
+  KeyRound,
+  X,
+  CheckCircle2,
+  AlertCircle
+} from "lucide-react";
 
 export default function AdminLoginPage() {
   const router = useRouter();
@@ -13,6 +26,14 @@ export default function AdminLoginPage() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
+
+  // Forgot Password Modal State
+  const [forgotOpen, setForgotOpen] = useState(false);
+  const [recoveryKey, setRecoveryKey] = useState("");
+  const [newPasswordReset, setNewPasswordReset] = useState("");
+  const [resetLoading, setResetLoading] = useState(false);
+  const [resetMessage, setResetMessage] = useState("");
+  const [resetError, setResetError] = useState("");
 
   const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,10 +57,47 @@ export default function AdminLoginPage() {
       } else {
         setError(data.message || "Invalid username or password");
       }
-    } catch (err) {
+    } catch {
       setError("Network error. Please try again.");
     } finally {
       setLoading(false);
+    }
+  };
+
+  const handleResetPassword = async (e: React.FormEvent) => {
+    e.preventDefault();
+    setResetError("");
+    setResetMessage("");
+    setResetLoading(true);
+
+    try {
+      const res = await fetch("/api/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          recoveryKey: recoveryKey.trim(),
+          newPassword: newPasswordReset
+        })
+      });
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        setResetMessage(data.message);
+        setPassword(newPasswordReset);
+        setTimeout(() => {
+          setForgotOpen(false);
+          setResetMessage("");
+          setRecoveryKey("");
+          setNewPasswordReset("");
+        }, 2000);
+      } else {
+        setResetError(data.message || "Failed to reset password.");
+      }
+    } catch {
+      setResetError("Network error. Please try again.");
+    } finally {
+      setResetLoading(false);
     }
   };
 
@@ -50,7 +108,7 @@ export default function AdminLoginPage() {
 
       <div className="relative z-10 w-full max-w-md">
         {/* Back to website button */}
-        <div className="mb-6">
+        <div className="mb-6 flex items-center justify-between">
           <Link
             href="/"
             className="inline-flex items-center gap-2 text-xs uppercase tracking-wider text-zinc-400 hover:text-[#d4af37] transition-colors"
@@ -73,7 +131,7 @@ export default function AdminLoginPage() {
               Admin Portal
             </h1>
             <p className="text-xs text-zinc-400 mt-1">
-              Sign in to manage ABCD Salon prices, deals & website content
+              Sign in to manage salon prices, deals & website content
             </p>
           </div>
 
@@ -111,9 +169,18 @@ export default function AdminLoginPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider mb-2">
-                Password
-              </label>
+              <div className="flex items-center justify-between mb-2">
+                <label className="block text-xs font-semibold text-zinc-300 uppercase tracking-wider">
+                  Password
+                </label>
+                <button
+                  type="button"
+                  onClick={() => setForgotOpen(true)}
+                  className="text-[11px] text-[#d4af37] hover:underline cursor-pointer"
+                >
+                  Forgot Password?
+                </button>
+              </div>
               <div className="relative">
                 <Lock className="w-4 h-4 text-zinc-400 absolute left-3.5 top-3.5" />
                 <input
@@ -127,7 +194,7 @@ export default function AdminLoginPage() {
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-3.5 text-zinc-400 hover:text-white"
+                  className="absolute right-3.5 top-3.5 text-zinc-400 hover:text-white cursor-pointer"
                 >
                   {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>
@@ -151,16 +218,102 @@ export default function AdminLoginPage() {
           </form>
 
           {/* Quick Default Credentials Tip */}
-          <div className="mt-8 p-3 rounded-xl bg-[#d4af37]/10 border border-[#d4af37]/20 text-[11px] text-zinc-400">
-            <div className="font-semibold text-[#f3e5ab] mb-0.5">Initial Setup Credentials:</div>
+          <div className="mt-6 p-3.5 rounded-xl bg-[#d4af37]/10 border border-[#d4af37]/20 text-[11px] text-zinc-400">
+            <div className="font-semibold text-[#f3e5ab] mb-0.5">Initial Login:</div>
             <div>Username: <code className="text-white font-mono">admin</code></div>
             <div>Password: <code className="text-white font-mono">admin123</code></div>
             <div className="mt-1 text-zinc-400">
-              (You can change your username & password inside the dashboard)
+              Emergency recovery key: <code className="text-[#f3e5ab] font-mono">ABCD-RECOVERY-KEY-2026</code> (or your salon phone number)
             </div>
           </div>
         </div>
       </div>
+
+      {/* FORGOT PASSWORD RECOVERY MODAL */}
+      {forgotOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fadeIn">
+          <div className="relative w-full max-w-md bg-[#141419] border border-[#d4af37]/40 rounded-2xl shadow-2xl p-6 sm:p-8">
+            <div className="flex items-center justify-between border-b border-zinc-800 pb-3 mb-4">
+              <div className="flex items-center gap-2">
+                <KeyRound className="w-5 h-5 text-[#d4af37]" />
+                <h3 className="font-serif-luxury font-bold text-white text-lg">
+                  Emergency Password Reset
+                </h3>
+              </div>
+              <button
+                onClick={() => setForgotOpen(false)}
+                className="text-zinc-400 hover:text-white p-1 rounded-lg"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+
+            {resetError && (
+              <div className="mb-4 p-3 rounded-xl bg-red-950/60 border border-red-500/40 text-red-200 text-xs flex items-center gap-2">
+                <AlertCircle className="w-4 h-4 shrink-0 text-red-400" />
+                <span>{resetError}</span>
+              </div>
+            )}
+
+            {resetMessage && (
+              <div className="mb-4 p-3 rounded-xl bg-emerald-950/60 border border-emerald-500/40 text-emerald-200 text-xs flex items-center gap-2">
+                <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-400" />
+                <span>{resetMessage}</span>
+              </div>
+            )}
+
+            <form onSubmit={handleResetPassword} className="space-y-4">
+              <div>
+                <label className="block text-xs font-semibold text-zinc-300 uppercase mb-1">
+                  Recovery Key or Salon Phone Number *
+                </label>
+                <input
+                  type="text"
+                  required
+                  value={recoveryKey}
+                  onChange={(e) => setRecoveryKey(e.target.value)}
+                  placeholder="ABCD-RECOVERY-KEY-2026 or Salon Phone"
+                  className="w-full bg-[#0b0b0e] border border-zinc-700 focus:border-[#d4af37] rounded-xl px-3.5 py-2.5 text-white text-xs outline-none"
+                />
+                <p className="text-[10px] text-zinc-500 mt-1">
+                  Use your master key <code className="text-[#d4af37]">ABCD-RECOVERY-KEY-2026</code> or your salon phone number.
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-zinc-300 uppercase mb-1">
+                  New Password (Minimum 6 characters) *
+                </label>
+                <input
+                  type="password"
+                  required
+                  value={newPasswordReset}
+                  onChange={(e) => setNewPasswordReset(e.target.value)}
+                  placeholder="Enter your new password"
+                  className="w-full bg-[#0b0b0e] border border-zinc-700 focus:border-[#d4af37] rounded-xl px-3.5 py-2.5 text-white text-xs outline-none"
+                />
+              </div>
+
+              <div className="pt-2 flex items-center justify-end gap-3">
+                <button
+                  type="button"
+                  onClick={() => setForgotOpen(false)}
+                  className="px-4 py-2 rounded-xl bg-zinc-800 text-zinc-300 text-xs font-semibold"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  disabled={resetLoading}
+                  className="px-5 py-2 rounded-xl bg-gradient-to-r from-[#e5c07b] to-[#d4af37] text-black text-xs font-bold uppercase tracking-wider disabled:opacity-50"
+                >
+                  {resetLoading ? "Resetting..." : "Reset Password"}
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
