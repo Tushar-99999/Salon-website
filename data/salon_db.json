@@ -1,6 +1,6 @@
 {
   "info": {
-    "name": "ABCD Salon",
+    "name": "AtoZSalon",
     "tagline": "Your Beauty, Our Passion",
     "shortIntro": "Experience luxury hair styling, rejuvenating skin therapies, and bespoke bridal beauty crafted by certified master artists.",
     "description": "ABCD Salon is Mumbai's premier unisex destination for elevated haircare, skincare, and bespoke makeup artistry. Founded on principles of meticulous technique, genuine international products (L'Oréal, Kérastase, Dyson), and warm hospitality, we provide a relaxing sanctuary where your personal aesthetic comes alive.",
@@ -31,16 +31,21 @@
     "happyClients": "15,000+",
     "expertStylists": "12",
     "rating": "4.9★",
-    "websiteUrl": "https://abcdsalon.vercel.app"
+    "websiteUrl": "https://abcdsalon.vercel.app",
+    "enableOnlinePayment": true,
+    "upiId": "abcdsalon@okhdfcbank",
+    "upiQrImage": "",
+    "advanceDepositAmount": 0,
+    "paymentNote": "Pay directly via Google Pay, PhonePe, or Paytm with zero transaction fee."
   },
   "services": [
     {
       "id": "srv-1",
       "name": "Men's Haircut",
       "category": "Men's Grooming",
-      "price": 150,
+      "price": 50,
       "originalPrice": 200,
-      "duration": "30 mins",
+      "duration": "15mins",
       "description": "Precision haircut customized for your face shape, followed by refreshing hair wash and modern style finish.",
       "image": "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?auto=format&fit=crop&w=600&q=80",
       "isActive": true,

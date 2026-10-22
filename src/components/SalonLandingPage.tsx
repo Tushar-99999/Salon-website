@@ -27,10 +27,42 @@ export default function SalonLandingPage({
   initialOffers,
   initialGallery
 }: SalonLandingPageProps) {
-  const [salonInfo] = useState<SalonInfo>(initialInfo);
-  const [services] = useState<ServiceItem[]>(initialServices);
-  const [offers] = useState<SpecialOfferItem[]>(initialOffers);
-  const [gallery] = useState<GalleryItem[]>(initialGallery);
+  const [salonInfo, setSalonInfo] = useState<SalonInfo>(initialInfo);
+  const [services, setServices] = useState<ServiceItem[]>(initialServices);
+  const [offers, setOffers] = useState<SpecialOfferItem[]>(initialOffers);
+  const [gallery, setGallery] = useState<GalleryItem[]>(initialGallery);
+
+  // Sync state and browser tab title whenever salonInfo changes
+  React.useEffect(() => {
+    setSalonInfo(initialInfo);
+    setServices(initialServices);
+    setOffers(initialOffers);
+    setGallery(initialGallery);
+    if (initialInfo?.name) {
+      document.title = `${initialInfo.name} | Luxury Hair, Skin & Bridal Salon`;
+    }
+  }, [initialInfo, initialServices, initialOffers, initialGallery]);
+
+  React.useEffect(() => {
+    if (salonInfo?.name) {
+      document.title = `${salonInfo.name} | Luxury Hair, Skin & Bridal Salon`;
+    }
+  }, [salonInfo?.name]);
+
+  // Also fetch live data on mount to guarantee fresh prices
+  React.useEffect(() => {
+    fetch("/api/salon", { cache: "no-store" })
+      .then((res) => res.json())
+      .then((result) => {
+        if (result.success && result.data) {
+          if (result.data.info) setSalonInfo(result.data.info);
+          if (result.data.services) setServices(result.data.services);
+          if (result.data.offers) setOffers(result.data.offers);
+          if (result.data.gallery) setGallery(result.data.gallery);
+        }
+      })
+      .catch((err) => console.error("Error refreshing salon data:", err));
+  }, []);
 
   const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [isQrModalOpen, setIsQrModalOpen] = useState(false);

@@ -31,6 +31,11 @@ export interface SalonInfo {
   expertStylists: string;
   rating: string;
   websiteUrl: string;
+  enableOnlinePayment?: boolean;
+  upiId?: string;
+  upiQrImage?: string;
+  advanceDepositAmount?: number;
+  paymentNote?: string;
 }
 
 export interface ServiceItem {

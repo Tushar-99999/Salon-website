@@ -1,7 +1,21 @@
 import React from "react";
 import { getSalonInfo, getServices, getOffers, getGallery } from "@/lib/db";
 import SalonLandingPage from "@/components/SalonLandingPage";
+export const dynamic = "force-dynamic";
+export const revalidate = 0;
+import type { Metadata } from "next";
 
+export async function generateMetadata(): Promise<Metadata> {
+  const info = getSalonInfo();
+  return {
+    title: `${info.name} | Luxury Hair, Skin & Bridal Salon`,
+    description: info.description || info.shortIntro,
+    openGraph: {
+      title: `${info.name} | ${info.tagline || "Your Beauty, Our Passion"}`,
+      description: info.shortIntro || info.description,
+    }
+  };
+}
 
 export default async function HomePage() {
   const info = getSalonInfo();

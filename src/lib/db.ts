@@ -37,18 +37,15 @@ function getWritableDbPath(): string {
 }
 
 export function getSalonDb(): SalonDatabase {
-  if (inMemoryDb) {
-    return inMemoryDb;
-  }
-
   const primaryPath = DB_FILE;
   const fallbackPath = TMP_FALLBACK_FILE;
 
   try {
     if (fs.existsSync(primaryPath)) {
       const raw = fs.readFileSync(primaryPath, "utf-8");
-      inMemoryDb = JSON.parse(raw);
-      return inMemoryDb!;
+      const parsed = JSON.parse(raw);
+      inMemoryDb = parsed;
+      return parsed;
     }
   } catch (err) {
     console.warn("Could not read from primary DB file:", err);
@@ -57,11 +54,16 @@ export function getSalonDb(): SalonDatabase {
   try {
     if (fs.existsSync(fallbackPath)) {
       const raw = fs.readFileSync(fallbackPath, "utf-8");
-      inMemoryDb = JSON.parse(raw);
-      return inMemoryDb!;
+      const parsed = JSON.parse(raw);
+      inMemoryDb = parsed;
+      return parsed;
     }
   } catch (err) {
     console.warn("Could not read from fallback DB file:", err);
+  }
+
+  if (inMemoryDb) {
+    return inMemoryDb;
   }
 
   // First time initialization: write initial data to disk

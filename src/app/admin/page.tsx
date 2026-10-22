@@ -114,6 +114,9 @@ export default function AdminDashboardPage() {
         if (infoRes.ok) {
           const d = await infoRes.json();
           setInfo(d.data);
+          if (typeof document !== "undefined" && d.data?.name) {
+            document.title = `${d.data.name} — Admin Portal`;
+          }
           // generate QR
           if (typeof window !== "undefined") {
             const url = d.data.websiteUrl || window.location.origin;
@@ -187,6 +190,9 @@ export default function AdminDashboardPage() {
       const data = await res.json();
       if (res.ok && data.success) {
         setInfo(data.data);
+        if (typeof document !== "undefined" && data.data?.name) {
+          document.title = `${data.data.name} — Admin Portal`;
+        }
         showToast("success", "Salon information saved successfully!");
       } else {
         showToast("error", data.message || "Failed to save information");
@@ -1347,6 +1353,59 @@ export default function AdminDashboardPage() {
                     placeholder="https://youtube.com/..."
                     className="w-full bg-[#0b0b0e] border border-zinc-700 rounded-xl px-3.5 py-2.5 text-white text-sm outline-none focus:border-[#d4af37]"
                   />
+                </div>
+              </div>
+            </div>
+
+            {/* 4. Online UPI Payments Setup */}
+            <div className="bg-[#141419] border border-zinc-800 rounded-2xl p-6 space-y-4">
+              <div className="flex items-center justify-between border-b border-zinc-800 pb-2">
+                <h3 className="font-serif-luxury text-base font-bold text-[#d4af37]">
+                  4. Online Payments & UPI Setup
+                </h3>
+                <label className="flex items-center gap-2 text-xs text-zinc-300 cursor-pointer">
+                  <input
+                    type="checkbox"
+                    checked={info.enableOnlinePayment !== false}
+                    onChange={(e) => setInfo({ ...info, enableOnlinePayment: e.target.checked })}
+                    className="w-4 h-4 rounded text-[#d4af37] bg-zinc-900 border-zinc-700"
+                  />
+                  <span>Enable Online Payments (GPay/PhonePe/Paytm)</span>
+                </label>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-xs font-semibold text-zinc-300 uppercase mb-1">
+                    Salon UPI ID (for instant customer payments) *
+                  </label>
+                  <input
+                    type="text"
+                    value={info.upiId || ""}
+                    onChange={(e) => setInfo({ ...info, upiId: e.target.value })}
+                    placeholder="e.g. 9876543210@paytm or salon@okhdfcbank"
+                    className="w-full bg-[#0b0b0e] border border-zinc-700 rounded-xl px-3.5 py-2.5 text-white text-sm outline-none focus:border-[#d4af37]"
+                  />
+                  <p className="text-[10px] text-zinc-500 mt-1">
+                    Customers can scan the dynamic QR code or pay directly from their UPI app. 0% transaction fee.
+                  </p>
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-zinc-300 uppercase mb-1">
+                    Advance Slot Deposit in ₹ (0 for full service price)
+                  </label>
+                  <input
+                    type="number"
+                    min={0}
+                    value={info.advanceDepositAmount || 0}
+                    onChange={(e) => setInfo({ ...info, advanceDepositAmount: Number(e.target.value) })}
+                    placeholder="0"
+                    className="w-full bg-[#0b0b0e] border border-zinc-700 rounded-xl px-3.5 py-2.5 text-white text-sm outline-none focus:border-[#d4af37]"
+                  />
+                  <p className="text-[10px] text-zinc-500 mt-1">
+                    Set e.g. 100 or 200 if you want customers to pay a small token deposit to reserve slots, or 0 for full service amount.
+                  </p>
                 </div>
               </div>
             </div>

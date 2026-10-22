@@ -9,15 +9,22 @@ export async function GET() {
     const offers = getOffers(true); // only active and valid (non-expired)
     const gallery = getGallery();
 
-    return NextResponse.json({
-      success: true,
-      data: {
-        info,
-        services,
-        offers,
-        gallery
+    return NextResponse.json(
+      {
+        success: true,
+        data: {
+          info,
+          services,
+          offers,
+          gallery
+        }
+      },
+      {
+        headers: {
+          "Cache-Control": "no-store, no-cache, must-revalidate, proxy-revalidate, max-age=0"
+        }
       }
-    });
+    );
   } catch (error) {
     console.error("Error fetching salon data:", error);
     return NextResponse.json(

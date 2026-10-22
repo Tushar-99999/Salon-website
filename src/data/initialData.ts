@@ -33,7 +33,12 @@ export const initialData: SalonDatabase = {
     happyClients: "15,000+",
     expertStylists: "12",
     rating: "4.9★",
-    websiteUrl: "https://abcdsalon.vercel.app"
+    websiteUrl: "https://abcdsalon.vercel.app",
+    enableOnlinePayment: true,
+    upiId: "abcdsalon@okhdfcbank",
+    upiQrImage: "",
+    advanceDepositAmount: 0,
+    paymentNote: "Pay directly via Google Pay, PhonePe, or Paytm with zero transaction fee."
   },
   services: [
     {
